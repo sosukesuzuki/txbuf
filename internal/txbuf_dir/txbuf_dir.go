@@ -25,7 +25,7 @@ func (e *TxbufDirError) Unwrap() error {
 func GetTxbufDir() (string, error) {
 	home, err := os.UserHomeDir()
 	if err != nil {
-		return "", &TxbufDirError{ msg: ".txbufの取得に失敗", err: err }
+		return "", &TxbufDirError{msg: ".txbufの取得に失敗", err: err}
 	}
 	txbufDir := filepath.Join(home, ".txbuf")
 	return txbufDir, nil
@@ -47,15 +47,15 @@ func Files() ([]fs.FileInfo, error) {
 		return nil, err
 	}
 	ok := existsDir(txbufDir)
-	if (!ok) {
+	if !ok {
 		err := os.Mkdir(txbufDir, 0777)
 		if err != nil {
-			return nil, &TxbufDirError{ msg: ".txbufの作成に失敗", err: err }
+			return nil, &TxbufDirError{msg: ".txbufの作成に失敗", err: err}
 		}
 	}
 	files, err := ioutil.ReadDir(txbufDir)
 	if err != nil {
-		return  nil, &TxbufDirError{ msg: ".txbufの中身の取得に失敗", err: err }
+		return nil, &TxbufDirError{msg: ".txbufの中身の取得に失敗", err: err}
 	}
 	return files, nil
 }
