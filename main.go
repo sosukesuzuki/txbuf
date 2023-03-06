@@ -4,24 +4,21 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/sosukesuzuki/txbuf/internal/txbuf_dir"
-	"github.com/sosukesuzuki/txbuf/internal/txbuf_file"
+	"github.com/sosukesuzuki/txbuf/cmd"
 )
 
 func main() {
-	txbufFiles, err := txbuf_dir.Files()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "[ERROR] %v\n", err)
-		os.Exit(1)
-	}
-	txbufDir, err := txbuf_dir.GetTxbufDir()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "[ERROR] %v\n", err)
-		os.Exit(1)
-	}
-	err = txbuf_file.Create(txbufFiles, txbufDir)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "[ERROR] %v\n", err)
-		os.Exit(1)
+	if len(os.Args) == 1 {
+		cmd.Root()
+	} else {
+		switch os.Args[1] {
+		case "new":
+			cmd.New()
+		case "query":
+			cmd.Query()
+		default:
+			fmt.Fprintf(os.Stderr, "[ERROR] txbuf doesn't support `%s`\n", os.Args[1])
+			os.Exit(1)
+		}
 	}
 }

@@ -100,16 +100,17 @@ func NewFile(latest fs.FileInfo) (string, error) {
 	return newFile, nil
 }
 
-func Create(files []fs.FileInfo, txbufDir string) error {
+func Create(files []fs.FileInfo, txbufDir string) (string, error) {
 	latest := Latest(files)
 	newFile, err := NewFile(latest)
 	if err != nil {
-		return &TxbufFileError{msg: "新しいファイルの作成に失敗", err: err}
+		return "", &TxbufFileError{msg: "新しいファイルの作成に失敗", err: err}
 	}
-	f, err := os.Create(filepath.Join(txbufDir, newFile))
+	newAbsFile := filepath.Join(txbufDir, newFile)
+	f, err := os.Create(newAbsFile)
 	if err != nil {
-		return &TxbufFileError{msg: "新しいファイルの作成に失敗", err: err}
+		return "", &TxbufFileError{msg: "新しいファイルの作成に失敗", err: err}
 	}
 	defer f.Close()
-	return nil
+	return newAbsFile, nil
 }
