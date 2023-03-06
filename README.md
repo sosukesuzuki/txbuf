@@ -1,7 +1,14 @@
 # txbuf
 
-## `txbuf`
+## Requirements
 
-## `txbuf new`
+- vim
+- peco
 
-## `txbuf query`
+## Commands
+
+### `txbuf`
+
+### `txbuf new`
+
+### `txbuf query`
