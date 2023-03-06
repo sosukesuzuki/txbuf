@@ -4,11 +4,14 @@ import (
 	"fmt"
 	"io/fs"
 	"os"
+	"path/filepath"
 	"sort"
 	"strconv"
 	"strings"
 	"time"
 )
+
+const layout = "20060102"
 
 type TxbufFileError struct {
 	msg string
@@ -34,7 +37,6 @@ func Parse(n string) (*ParsedTxbufName, error) {
 		return nil, &TxbufFileError{msg: "ファイル名のパースに失敗"}
 	}
 
-	layout := "20060102"
 	t, err := time.Parse(layout, raws[0])
 	if err != nil {
 		return nil, &TxbufFileError{msg: "ファイル名の日付のパースに失敗", err: err}
@@ -79,4 +81,35 @@ func Latest(files []fs.FileInfo) fs.FileInfo {
 		return nil
 	}
 	return files[0]
+}
+
+func NewFile(latest fs.FileInfo) (string, error) {
+	t := time.Now()
+	d := t.Format(layout)
+	var version uint
+	if latest == nil {
+		version = 1
+	} else {
+		p, err := Parse(latest.Name())
+		if err != nil {
+			return "", &TxbufFileError{msg: "最新のファイルのパースに失敗", err: err}
+		}
+		version = p.version + 1
+	}
+	newFile := fmt.Sprintf("%s-%d.txt", d, version)
+	return newFile, nil
+}
+
+func Create(files []fs.FileInfo, txbufDir string) error {
+	latest := Latest(files)
+	newFile, err := NewFile(latest)
+	if err != nil {
+		return &TxbufFileError{msg: "新しいファイルの作成に失敗", err: err}
+	}
+	f, err := os.Create(filepath.Join(txbufDir, newFile))
+	if err != nil {
+		return &TxbufFileError{msg: "新しいファイルの作成に失敗", err: err}
+	}
+	defer f.Close()
+	return nil
 }

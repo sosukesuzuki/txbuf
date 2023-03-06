@@ -14,10 +14,14 @@ func main() {
 		fmt.Fprintf(os.Stderr, "[ERROR] %v\n", err)
 		os.Exit(1)
 	}
-	latest := txbuf_file.Latest(txbufFiles)
-	if latest == nil {
-		// ファイルの作成にフォールバックする
-		fmt.Fprintf(os.Stdout, "ファイルなし")
-		os.Exit(0)
+	txbufDir, err := txbuf_dir.GetTxbufDir()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "[ERROR] %v\n", err)
+		os.Exit(1)
+	}
+	err = txbuf_file.Create(txbufFiles, txbufDir)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "[ERROR] %v\n", err)
+		os.Exit(1)
 	}
 }
