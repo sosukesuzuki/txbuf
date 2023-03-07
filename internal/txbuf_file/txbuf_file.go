@@ -26,8 +26,8 @@ func (e *TxbufFileError) Unwrap() error {
 }
 
 type ParsedTxbufName struct {
-	date    time.Time
-	version uint
+	Date    time.Time
+	Version uint
 }
 
 // 20230301-1 のような形のファイル名をパースする
@@ -48,8 +48,8 @@ func Parse(n string) (*ParsedTxbufName, error) {
 	}
 
 	return &ParsedTxbufName{
-		date:    t,
-		version: uint(v),
+		Date:    t,
+		Version: uint(v),
 	}, nil
 }
 
@@ -68,10 +68,10 @@ func (f ByTxbufName) Less(i, j int) bool {
 		fmt.Fprintf(os.Stdout, "[INFO] %v\n", err)
 		return false
 	}
-	if a.date.Before(b.date) {
+	if a.Date.Before(b.Date) {
 		return true
 	}
-	return a.version < b.version
+	return a.Version < b.Version
 }
 
 // 与えられたファイルの配列から、命名規則に従ってもっとも最近作られたファイルを返す
@@ -94,7 +94,7 @@ func NewFileName(t time.Time, latest fs.FileInfo) (string, error) {
 		if err != nil {
 			return "", &TxbufFileError{msg: "最新のファイルのパースに失敗", err: err}
 		}
-		version = p.version + 1
+		version = p.Version + 1
 	}
 	newFile := fmt.Sprintf("%s-%d.txt", d, version)
 	return newFile, nil
