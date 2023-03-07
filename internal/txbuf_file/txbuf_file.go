@@ -42,7 +42,7 @@ func Parse(n string) (*ParsedTxbufName, error) {
 		return nil, &TxbufFileError{msg: "ファイル名の日付のパースに失敗", err: err}
 	}
 
-	v, err := strconv.Atoi(raws[1])
+	v, err := strconv.Atoi(strings.Split(raws[1], ".")[0])
 	if err != nil {
 		return nil, &TxbufFileError{msg: "ファイル名のバージョンのパースに失敗", err: err}
 	}
@@ -80,7 +80,7 @@ func Latest(files []fs.FileInfo) fs.FileInfo {
 	if len(files) == 0 {
 		return nil
 	}
-	return files[0]
+	return files[len(files) - 1]
 }
 
 func NewFile(latest fs.FileInfo) (string, error) {
