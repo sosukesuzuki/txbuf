@@ -2,6 +2,12 @@
 
 txbuf is a CLI based note taking app.
 
+## Installation
+
+```
+go install github.com/sosukesuzuki/txbuf@latest
+```
+
 ## Requirements
 
 - vim
@@ -13,3 +19,5 @@ txbuf is a CLI based note taking app.
 ### `txbuf`
 
 ### `txbuf new`
+
+### `txbuf query`
