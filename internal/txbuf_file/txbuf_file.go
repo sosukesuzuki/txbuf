@@ -80,7 +80,7 @@ func Latest(files []fs.FileInfo) fs.FileInfo {
 	if len(files) == 0 {
 		return nil
 	}
-	return files[len(files) - 1]
+	return files[len(files)-1]
 }
 
 func NewFile(latest fs.FileInfo) (string, error) {
