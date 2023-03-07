@@ -83,8 +83,8 @@ func Latest(files []fs.FileInfo) fs.FileInfo {
 	return files[len(files)-1]
 }
 
-func NewFile(latest fs.FileInfo) (string, error) {
-	t := time.Now()
+// 新しい .txbuf ファイルの名前を生成する
+func NewFileName(t time.Time, latest fs.FileInfo) (string, error) {
 	d := t.Format(layout)
 	var version uint
 	if latest == nil {
@@ -102,7 +102,7 @@ func NewFile(latest fs.FileInfo) (string, error) {
 
 func Create(files []fs.FileInfo, txbufDir string) (string, error) {
 	latest := Latest(files)
-	newFile, err := NewFile(latest)
+	newFile, err := NewFileName(time.Now(), latest)
 	if err != nil {
 		return "", &TxbufFileError{msg: "新しいファイルの作成に失敗", err: err}
 	}
