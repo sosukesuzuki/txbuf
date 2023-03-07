@@ -6,6 +6,7 @@ txbuf is a CLI based note taking app.
 
 - vim
 - peco
+- bash
 
 ## Commands
 
