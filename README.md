@@ -12,3 +12,5 @@
 ### `txbuf new`
 
 ### `txbuf query`
+
+### `txbuf copy`
