@@ -12,7 +12,3 @@ txbuf is a CLI based note taking app.
 ### `txbuf`
 
 ### `txbuf new`
-
-### `txbuf query`
-
-### `txbuf copy`
