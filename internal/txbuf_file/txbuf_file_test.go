@@ -102,3 +102,43 @@ func TestLatest(t *testing.T) {
 		})
 	}
 }
+
+func TestNewFileName(t *testing.T) {
+	tests := []struct {
+		name         string
+		inputTime    time.Time
+		inputLatest  fs.FileInfo
+		wantFileName string
+	}{
+		{
+			name:         "latestがないとき、version1で作成",
+			inputTime:    time.Date(2022, time.March, 1, 0, 0, 0, 0, time.UTC),
+			inputLatest:  nil,
+			wantFileName: "20220301-1.txt",
+		},
+		{
+			name:         "latestと同じ日付を渡したときに、後続のversionで作成",
+			inputTime:    time.Date(2022, time.March, 1, 0, 0, 0, 0, time.UTC),
+			inputLatest:  NewDummyFileInfo("20220301-1.txt"),
+			wantFileName: "20220301-2.txt",
+		},
+		{
+			name:         "latestと違い日付を渡したときに、version1で作成",
+			inputTime:    time.Date(2022, time.March, 2, 0, 0, 0, 0, time.UTC),
+			inputLatest:  NewDummyFileInfo("20220301-1.txt"),
+			wantFileName: "20220302-1.txt",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result, err := txbuf_file.NewFileName(tt.inputTime, tt.inputLatest)
+			if err != nil {
+				t.Errorf("新しいファイルの作成に失敗 %v", err)
+			}
+			if result != tt.wantFileName {
+				t.Errorf("予期せぬ値 期待する値: %s, 実際の値: %s", tt.wantFileName, result)
+			}
+		})
+	}
+}

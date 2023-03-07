@@ -94,7 +94,11 @@ func NewFileName(t time.Time, latest fs.FileInfo) (string, error) {
 		if err != nil {
 			return "", &TxbufFileError{msg: "最新のファイルのパースに失敗", err: err}
 		}
-		version = p.Version + 1
+		if p.Date.Equal(t) {
+			version = p.Version + 1
+		} else {
+			version = 1
+		}
 	}
 	newFile := fmt.Sprintf("%s-%d.txt", d, version)
 	return newFile, nil
