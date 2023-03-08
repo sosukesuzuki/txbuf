@@ -16,6 +16,8 @@ func main() {
 			cmd.New()
 		case "query":
 			cmd.Query()
+		case "clone":
+			cmd.Clone()
 		default:
 			fmt.Fprintf(os.Stderr, "[ERROR] txbuf doesn't support `%s`\n", os.Args[1])
 			os.Exit(1)

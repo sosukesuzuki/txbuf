@@ -94,7 +94,9 @@ func NewFileName(t time.Time, latest fs.FileInfo) (string, error) {
 		if err != nil {
 			return "", &TxbufFileError{msg: "最新のファイルのパースに失敗", err: err}
 		}
-		if p.Date.Equal(t) {
+		y1, m1, d1 := p.Date.Date()
+		y2, m2, d2 := t.Date()
+		if y1 == y2 && m1 == m2 && d1 == d2 {
 			version = p.Version + 1
 		} else {
 			version = 1
