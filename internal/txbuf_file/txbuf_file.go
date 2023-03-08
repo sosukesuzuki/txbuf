@@ -68,10 +68,10 @@ func (f ByTxbufName) Less(i, j int) bool {
 		fmt.Fprintf(os.Stdout, "[INFO] %v\n", err)
 		return false
 	}
-	if a.Date.Before(b.Date) {
-		return true
+	if a.Date.Equal(b.Date) {
+		return a.Version < b.Version
 	}
-	return a.Version < b.Version
+	return a.Date.Before(b.Date)
 }
 
 // 与えられたファイルの配列から、命名規則に従ってもっとも最近作られたファイルを返す
