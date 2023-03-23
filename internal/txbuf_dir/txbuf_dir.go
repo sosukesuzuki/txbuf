@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 type TxbufDirError struct {
@@ -57,5 +58,11 @@ func Files() ([]fs.FileInfo, error) {
 	if err != nil {
 		return nil, &TxbufDirError{msg: ".txbufの中身の取得に失敗", err: err}
 	}
-	return files, nil
+	filterd := make([]fs.FileInfo, 0, len(files))
+	for _, file := range files {
+		if strings.HasPrefix(file.Name(), "20") {
+			filterd = append(filterd, file)
+		}
+	}
+	return filterd, nil
 }
