@@ -38,3 +38,7 @@ go install github.com/sosukesuzuki/txbuf@latest
 ### `txbuf clone`
 
 最新のファイルをコピーして、`20230301-2.txt` のような名前のファイルを新しく作成します。最新のファイルが存在しない場合は、何もしません。
+
+### `txbuf git`
+
+`.txbuf` ディレクトリ上で `git` コマンドを実行します。たとえば `txbuf git push origin HEAD` や `txbuf git pull` のように使います。

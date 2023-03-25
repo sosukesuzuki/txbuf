@@ -15,7 +15,7 @@ type TxbufDirError struct {
 }
 
 func (e *TxbufDirError) Error() string {
-	return fmt.Sprintf("Error from texbuf: %s (%s)", e.msg, e.err.Error())
+	return fmt.Sprintf("Error from texbuf_dir: %s (%s)", e.msg, e.err.Error())
 }
 
 func (e *TxbufDirError) Unwrap() error {
