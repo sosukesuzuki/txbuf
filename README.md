@@ -44,3 +44,7 @@ go install github.com/sosukesuzuki/txbuf@latest
 ### `txbuf git`
 
 `~/.txbuf/` ディレクトリ上で `git` コマンドを実行します。たとえば `txbuf git push origin HEAD` や `txbuf git pull` のように使います。
+
+### `txbuf push`
+
+`~/.txbuf` ディレクトリ上で `git add . && git commit -m 'Update' && git push origin HEAD` を実行します。
