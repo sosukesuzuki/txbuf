@@ -17,6 +17,7 @@ go install github.com/sosukesuzuki/txbuf@latest
 - vim
 - peco
 - bash
+- git
 
 ## Commands
 
@@ -41,4 +42,4 @@ go install github.com/sosukesuzuki/txbuf@latest
 
 ### `txbuf git`
 
-`.txbuf` ディレクトリ上で `git` コマンドを実行します。たとえば `txbuf git push origin HEAD` や `txbuf git pull` のように使います。
+`~/.txbuf/` ディレクトリ上で `git` コマンドを実行します。たとえば `txbuf git push origin HEAD` や `txbuf git pull` のように使います。
