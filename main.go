@@ -20,6 +20,8 @@ func main() {
 			cmd.Clone()
 		case "git":
 			cmd.Git(os.Args[2:])
+		case "push":
+			cmd.Push()
 		default:
 			fmt.Fprintf(os.Stderr, "[ERROR] txbuf doesn't support `%s`\n", os.Args[1])
 			os.Exit(1)
