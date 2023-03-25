@@ -25,7 +25,7 @@ func RunGit(txbufDir string, args []string) (string, error) {
 	c := exec.Command("bash", "-c", cmd)
 	o, err := c.Output()
 	if err != nil {
-		return "", &GitError{ err: err, msg: fmt.Sprintf("`%s`の実行に失敗", cmd) }
+		return "", &GitError{err: err, msg: fmt.Sprintf("`%s`の実行に失敗", cmd)}
 	}
 	return string(o), nil
 }
