@@ -18,8 +18,6 @@ func main() {
 			cmd.Query()
 		case "clone":
 			cmd.Clone()
-		case "git":
-			cmd.Git(os.Args[2:])
 		case "push":
 			cmd.Push()
 		default:
