@@ -6,7 +6,7 @@ import (
 )
 
 func OpenPeco(txbufDir string) (string, error) {
-	cmd := fmt.Sprintf("ls %s | peco", txbufDir)
+	cmd := fmt.Sprintf("ls -t %s | peco", txbufDir)
 	c := exec.Command("bash", "-c", cmd)
 	o, err := c.Output()
 	if err != nil {
